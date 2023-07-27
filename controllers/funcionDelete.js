@@ -1,12 +1,15 @@
 const fs = require('fs/promises');
 
+const readFileFuncion = require('../helpers/readFileFuncion');
+
 const funcionDelete = async({id}) => {
     
-    try{
-        const tareasArchivo = await fs.readFile('./datos/tareas.txt');
-        const arrayTareas = await JSON.parse(tareasArchivo);
+    let arrayTareas = [];
 
-        const nuevasTareas = arrayTareas.filter(tareas => tareas.id !== id);
+    try{        
+        arrayTareas = await readFileFuncion();
+
+        const nuevasTareas = arrayTareas.filter(tareas => tareas.id !== id);        
 
         await fs.writeFile('./datos/tareas.txt',JSON.stringify(nuevasTareas,null, 2));
         console.log('La tarea ha sido eliminada exitosamente');

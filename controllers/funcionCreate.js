@@ -1,17 +1,18 @@
-//const { v4: uuidv4 } = require('crypto');
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs/promises');
 
+const readFileFuncion = require('../helpers/readFileFuncion');
+
 const funcionCreate = async({titulo,contenido}) => {
 
-    console.log('Pasa por el create');
+    let arrayTareas = [];
+    
     try{
 
         const id = uuidv4().slice(0,8);
         const nuevaTarea = { id: id , titulo: titulo,contenido : contenido };
-
-        const tareas = await fs.readFile('./datos/tareas.txt');
-        const arrayTareas = JSON.parse(tareas);
+        
+        arrayTareas = await readFileFuncion();
 
         arrayTareas.push(nuevaTarea);
 
